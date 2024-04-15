@@ -1,12 +1,15 @@
-import PIL
-import PIL.Image
+from nbtlib.tag import *
+from nbtlib import File
+import nbtlib
 
-def test(path,x,y):
-    img = PIL.Image.open(path).convert('RGB')
-    r, g ,b = img.getpixel((x,y))
-    a = (r,g,b)
-    return a
+new_file = File(
+    {
+        'blocks': List[Compound]({'': Compound({'pos': List[Int]([0,0,0])})})
+    }
+)
+new_file.save("nbt_files/new_file.nbt")
 
-imige = 'blend.png'
+loaded_file = nbtlib.load("nbt_files/new_file.nbt")
+loaded_file.gzipped
 
-print(test(imige,1,0))
+print(loaded_file.values())
