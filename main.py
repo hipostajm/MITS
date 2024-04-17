@@ -4,7 +4,17 @@ import nbtlib
 
 new_file = File(
     {
-        'blocks': List[Compound]({'': Compound({'pos': List[Int]([0,0,0])})})
+        "w": Compound(
+            {
+                "blocks": List[Compound](
+                    [Compound({"pos": List[Int]([0, 0, 0]), "state": Int(0)})]
+                ),
+                "palette": List[Compound](
+                    [Compound({"Name": String("minecraft:cobblestone")})]
+                ),
+                "size": List[Int]([1, 1, 1]),
+            }
+        )
     }
 )
 new_file.save("nbt_files/new_file.nbt")
