@@ -11,7 +11,7 @@ down_grade_size = 36
 if not math.sqrt(down_grade_size).is_integer():
     raise NotASquereOfNumber
 
-img = "w.png"
+img = "Untitled.png"
 size = Image.open(img).size
 new_size = (
     int(size[0] / math.sqrt(down_grade_size)),
@@ -19,7 +19,7 @@ new_size = (
 )
 new_imige = Image.new(mode="RGB", size=(new_size[0], new_size[1]), color="orange")
 pixels_new = new_imige.load()
-threads = 100
+threads = 10
 
 
 def rgb_of_pixel(img_path: str, x: int, y: int):
@@ -79,19 +79,50 @@ def getting_color(x_range: int,y_range: int,down_grading_size: int):
                 for y_compard in y_list:
                     comperd.append((x_comperd, y_compard))
 
+            print('x and y compard: ',(x_comperd,y_compard))
+            print('x and y list: ',(x_list,y_list))
+
             avg_color = avriging_pixeles(comperd, img)
             avg_collors.append((avg_color, x, y))
 
-# for thread in range(threads):
-    
-#     x_blocks = math.ceil(size[0]/down_grade_size)
-#     y_blocks = math.ceil(size[1]/down_grade_size)
-#     num_of_blocks = x_blocks*y_blocks
-#     block_per_thread = math.ceil(num_of_blocks/threads)
+a = False
 
-#     list_of_blocks = []
+thread_list = []
 
-#     if size[0] < num_of_blocks*down_grade_size:
+if a:
+    for i in range(threads):
+        
+        x_blocks = math.ceil(size[0]/down_grade_size)
+        y_blocks = math.ceil(size[1]/down_grade_size)
+        num_of_blocks = x_blocks*y_blocks
+        block_per_thread = math.ceil(num_of_blocks/threads)
+        if i == 0:
+            x_divided = 0
+            y_divided = 0
+        else:
+            x_divided = size[0]/i
+            y_divided = size[1]/i
+
+        list_of_blocks = []
+
+        for x in range(new_size[0]):
+            for y in range(new_size[1]):
+
+                x_list = []
+                y_list = []
+                comperd = []
+
+                for i in range(int(math.sqrt(down_grade_size))):
+                    x_list.append(x * math.sqrt(down_grade_size) + i)
+                    y_list.append(y * math.sqrt(down_grade_size) + i)
+
+                list_of_blocks.append((x_list,y_list))
+        
+        for x in range(x_divided*i,x_divided*i*2):
+            for y in range(y_divided*i,x_divided*i*2):
+                thread = threading.Thread(target=getting_color, args=(x, y,down_grade_size))
+                thread_list.append(thread)
+
 
 
 getting_color(new_size[0],new_size[1],down_grade_size)
