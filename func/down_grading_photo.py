@@ -1,12 +1,18 @@
 from PIL import Image
-from rgb_of_pixel import rgb_of_pixel
-from avg_color import avg_color
+from func.rgb_of_pixel import rgb_of_pixel
+from func.avg_color import avg_color
 import math
+
+class notASquereOfNumber(Exception):
+    pass
 
 def down_grading_photo(
     path_to_file: str,
     downgrade_scale: int,
 ) -> list[tuple[float | int, float | int, float | int]]:
+    
+    if not math.sqrt(downgrade_scale).is_integer():
+        raise notASquereOfNumber
 
     img = Image.open(path_to_file).convert("RGB")
 
