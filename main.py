@@ -1,12 +1,12 @@
 from nbtlib.tag import Compound, List, String, Int
-from PIL import Image
 from nbtlib import File, load
+from PIL import Image
 from func.down_grading_photo import down_grading_photo
 
-path = './assets/t.png'
+path = "./assets/t.png"
 
 img = Image.open(path)
-collors = down_grading_photo(path, 4)
+collors = down_grading_photo(path, 1)
 
 new_file = File(
     {
@@ -26,6 +26,6 @@ new_file = File(
 new_file.save("nbt_files/new_file.nbt")
 
 loaded_file = load("nbt_files/new_file.nbt")
-loaded_file.gzipped 
+loaded_file.gzipped
 
 print(loaded_file.values())
