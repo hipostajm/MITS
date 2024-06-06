@@ -27,7 +27,7 @@ for version in list_of_versions:
                     for y in range(img.height):
                         collors.append(rgb_of_pixel(img, x, y))
 
-                colors_dict[image] = avg_color([collors])[0]
+                colors_dict[image.split('.')[0]] = avg_color([collors])[0]
 
     with open(f'./pallet_making/versions/{version}/avg_collors.json','w') as output:
         json.dump(colors_dict, output)

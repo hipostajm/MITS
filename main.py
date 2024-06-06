@@ -1,31 +1,44 @@
-from nbtlib.tag import Compound, List, String, Int
-from nbtlib import File, load
+from nbtlib import parse_nbt, File
 from PIL import Image
 from func.down_grading_photo import down_grading_photo
+import math
+import json
+
+#TODO: Ogarnąć generowanie NBT i tyle
 
 path = "./assets/t.png"
+version = '1.20.2'
+down_grade_scale = 1
 
 img = Image.open(path)
-collors = down_grading_photo(path, 1)
+collors = down_grading_photo(path, down_grade_scale)
 
-new_file = File(
+blocks = ''
+
+json.load(f'./pallet_making/versions/{version}/avg_collors.json')
+
+main_nbt = f">w:>size: [{img.width/math.sqrt(down_grade_scale)},{img.height/math.sqrt(down_grade_scale)},1],blocks: [{blocks}],"""
+
+nbt = parse_nbt("""
+{
+w:{
+  size: [69,74,1],
+  blocks: [
     {
-        "w": Compound(
-            {
-                "blocks": List[Compound](
-                    [Compound({"pos": List[Int]([0, 0, 0]), "state": Int(0)})]
-                ),
-                "palette": List[Compound](
-                    [Compound({"Name": String("minecraft:cobblestone")})]
-                ),
-                "size": List[Int]([img.width, img.height, 1]),
-            }
-        )
+    pos: [0,0,0]
+    ,tate: 0
+    },
+    {
+      pos: [1, 0, 0],
+      state: 1
     }
-)
-new_file.save("nbt_files/new_file.nbt")
+  ],
+  palette: [
+    {Name: "minecraft:cobblestone"},
+    {Name: "minecraft:dirt"}
+  ]
+}
+}
+""")
 
-loaded_file = load("nbt_files/new_file.nbt")
-loaded_file.gzipped
-
-print(loaded_file.values())
+File(nbt).save('test2.nbt')
