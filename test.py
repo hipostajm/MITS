@@ -1,25 +1,12 @@
-from nbtlib import parse_nbt, File
+from funcs.avg_collor import avg_collor
+from funcs.rgba_of_pixel import rgba_of_pixel
+from PIL import Image
 
-a = parse_nbt("""
-{
-w:{
-  blocks: [
-    {
-    pos: [0,0,0]
-    ,tate: 0
-    },
-    {
-      pos: [1, 0, 0],
-      state: 1
-    }
-  ],
-  palette: [
-    {Name: "minecraft:cobblestone"},
-    {Name: "minecraft:dirt"}
-  ],
-  size: [69,74,1]
-}
-}
-""")
+img = Image.open('./assets/30x30to10x10.png').convert('RGBA')
 
-File(a).save('test2.nbt')
+print(avg_collor(img, [0,1,2,3,4,5], [0]))
+print(rgba_of_pixel(img,1,0))
+
+# for x in range(img.width):
+#     for y in range(img.height):
+#         print(rgba_of_pixel(img, x , y))
