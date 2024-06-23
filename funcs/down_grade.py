@@ -7,7 +7,7 @@ import math
 class NotASquereOfNumber(Exception):
     pass
 
-def down_grade(image: Image, down_grade_scale: int = 1) -> list:
+def down_grade(image: Image, down_grade_scale: int = 1) -> list|bool:
     if not math.sqrt(down_grade_scale).is_integer():
         raise NotASquereOfNumber
 
@@ -24,9 +24,13 @@ def down_grade(image: Image, down_grade_scale: int = 1) -> list:
 
     for x in range (new_width):
         for y in range(new_height):
-            collors.append(
-                avg_color(image, [x * x_dg_scale, x*x_dg_scale + x_dg_scale], [y * y_dg_scale, y*y_dg_scale + y_dg_scale])
-            )
+            avg = avg_color(image, [x * x_dg_scale, x*x_dg_scale + x_dg_scale], [y * y_dg_scale, y*y_dg_scale + y_dg_scale])
+            if avg:
+                collors.append(
+                    avg
+                )
+            else:
+                return False
 
     return collors
 

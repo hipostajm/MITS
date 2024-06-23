@@ -3,4 +3,4 @@ from funcs.down_grade import down_grade
 
 img = Image.open('./assets/30x30to10x10.png').convert('RGBA')
 
-print(len(down_grade(img, 4)))
+print(down_grade(img, 9))
