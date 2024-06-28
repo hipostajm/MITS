@@ -17,16 +17,13 @@ for version in versions:
 
     for block in blocks:
         block_splitted = block.split('.')
-        if block_splitted[-1] == 'png' and 'top' not in block_splitted[0].split('_') and 'bottom' not in block_splitted[0].split('_') and 'side' not in block_splitted[0].split('_') and 'front' not in block_splitted[0].split('_'):
+        if block_splitted[-1] == 'png' and 'top' not in block_splitted[0].split('_') and 'bottom' not in block_splitted[0].split('_') and 'side' not in block_splitted[0].split('_') and 'side1' not in block_splitted[0].split('_') and 'front' not in block_splitted[0].split('_') and 'side0' not in block_splitted[0].split('_') and 'side2' not in block_splitted[0].split('_') and 'side3' not in block_splitted[0].split('_') and 'side4' not in block_splitted[0].split('_'):
             img = Image.open(f'{blocks_path}/{block}').convert('RGBA')
             if img.width == img.height:
                 result = avg_color(img,[0, img.width], [0, img.height])
                 
                 if result:
                     colors[block.split('.')[0]] = result
-
-    print(colors)
-    print(len(colors))
 
     with open(f"./palett/blocks/{version}/colors.json", "w") as file: 
         json.dump(colors, file)

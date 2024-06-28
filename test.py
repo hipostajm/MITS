@@ -1,6 +1,5 @@
 from PIL import Image
-from funcs.down_grade import down_grade
+from funcs.used_blocks import used_blocks
 
-img = Image.open('./assets/30x30to10x10.png').convert('RGBA')
+print(used_blocks(Image.open('./assets/6.jpg').convert('RGBA'),'1.20.4'))
 
-print(down_grade(img, 9))
