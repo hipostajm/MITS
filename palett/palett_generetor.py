@@ -2,7 +2,7 @@ import sys
 
 sys.path.insert(1, './')
 
-from funcs.avg_color import avg_color
+from funcs import avg_color
 from PIL import Image
 import os
 import json
